@@ -51,3 +51,4 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
 - 以下のスライドの21ページから86ページを「写経」してみてください
 - [https://www.slideshare.net/m884/japan-r-15432969](https://www.slideshare.net/m884/japan-r-15432969)
+- 途中のスライドで使うスライドは…
