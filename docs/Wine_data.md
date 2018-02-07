@@ -231,13 +231,15 @@ sd(wine$Alcohol) # 標準偏差
 
     ## [1] 0.8118265
 
-次は、ワインに含まれるリンゴ酸(Malic acid)のデータを見てみる
+次は、ワインに含まれるリンゴ酸(Malic acid)のデータを見てみる。
 
 ``` r
 hist(wine$Malic)
 ```
 
-![](Wine_data_files/figure-markdown_github/unnamed-chunk-8-1.png) おー、ゆがんだ分布だ。
+![](Wine_data_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+おー、ゆがんだ分布だ。
 
 ``` r
 summary(wine$Malic)
@@ -247,3 +249,4 @@ summary(wine$Malic)
     ##   0.740   1.603   1.865   2.336   3.083   5.800
 
 ゆがんだ分布なので、中央値よりも平均値が大きくなる。
+他のデータでも分布や、代表値を見てみてください。
