@@ -1,0 +1,103 @@
+---
+title: "ワイン(のデータ)を味わう"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ワインに関するデータを味わってみる。  
+同時に、rの関数も味わってみてください。
+
+## 準備
+
+```{r}
+# rattle.dataというパッケージをインストールする。1回目だけ実行すればよい。2回目以降は実行不要。
+# install.packages("rattle.data") # 実行するときは、install～の前の#を削除してください。
+```
+
+```{r}
+library(rattle.data) # パッケージをロードする。こちらは毎回実行する。
+data("wine") # rattle.dataパッケージに含まれる、wineというデータをロードする。
+```
+
+## データ構造を見る
+
+```{r}
+nrow(wine) # wineは178行で…
+
+ncol(wine) # 14列のデータセットのようだ
+
+head(wine) # データの最初の6行を表示する
+
+head(wine, n = 10) # データの最初の10行を表示する
+
+tail(wine) # データの最後の6行を表示する
+
+tail(wine, n = 8) # データの最後の8行を表示する
+
+names(wine) # 列の名前を表示する
+
+length(names(wine)) # 列の名前は14個ある。列の数と一致している(当たり前)。
+
+```
+
+列の名前の意味は、以下のサイトの中段あたりを参照のこと。  
+https://qiita.com/Dixhom/items/7c33a1dc85144e1da822
+
+```{r}
+wine$Alcohol # wineデータセットのAlcohol(アルコール)列のみを取り出す
+
+head(wine$Alcohol, n = 10) # ちょっと多すぎるので、最初の10個のみを取り出してみる
+
+head(wine$Color) # Color(色彩強度)列の、最初の6個のデータを取り出す
+```
+
+## データの代表値や可視化をしてみる
+
+wineデータセットのうち、Alcohol(アルコール)列のみを使う。
+
+```{r}
+hist(wine$Alcohol) # ヒストグラム
+```
+割と、左右対称なグラフですね。
+
+```{r}
+mean(wine$Alcohol) # 平均値
+
+median(wine$Alcohol) # 中央値
+
+max(wine$Alcohol) # 最大値
+
+min(wine$Alcohol) # 最低値
+
+summary(wine$Alcohol) # 上記の代表値をまとめて表示する
+```
+
+左右対称の分布だったので、中央値 median と平均値 mean はほぼ同じような値ですね。  
+"1st Qu."はデータを小さい順に並べて、下から25%目のデータの値、  
+"3rd Qu."は、下から75%目(上から25%目)の値。  
+ちなみに、中央値 median は50%目の値ですね。  
+ワインのアルコール度なので、当然13度くらいの値になりますよね。 
+
+```{r}
+sd(wine$Alcohol) # 標準偏差
+```
+
+次は、ワインに含まれるリンゴ酸(Malic acid)のデータを見てみる。
+
+```{r}
+hist(wine$Malic)
+```
+
+おー、ゆがんだ分布だ。
+
+```{r}
+summary(wine$Malic)
+```
+
+ゆがんだ分布なので、中央値よりも平均値が大きくなる。
+
