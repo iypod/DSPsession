@@ -208,7 +208,7 @@ hist(rnorm(10000, sd = 10)) # 平均0、標準偏差は10(分散なら100)の正
 
 ![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-11-3.png)
 
-上記の三つの分布を重ねて描いてみる。グレーが標準偏差1, グリーンが標準偏差2、オレンジが標準偏差10。分散(=標準偏差の2乗)は、まさに分布の広がりを具合を表している。
+上記の三つの分布を重ねて描いてみる。グレーが標準偏差1, グリーンが標準偏差2、オレンジが標準偏差10。分散(=標準偏差の2乗)は、まさに分布の広がり具合を表している。
 
 ![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
