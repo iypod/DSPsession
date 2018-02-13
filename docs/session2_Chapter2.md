@@ -418,6 +418,10 @@ hist(replicate(100, mean(rnorm(100000))))  # サンプルサイズ100000で標�
 ![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-19-3.png)
 
 標準偏差とはデータのばらつき具合だったが、ヒストグラムの横軸に注目してみると、ばらつき具合がどんどん小さくなっていく。
+上記の三つのヒストグラムを重ねて描いてみると、以下の通り。グレーのヒストグラムは、オレンジに比べて分散があまりに小さいので、0(平均)上にしか分布していない。どのヒストグラムが、サンプルサイズ10、1000、100000か、考えてみてください。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-20-1.png)
+
 さらに、最大値、最小値や、四分位数を見てみよう。今度は標本数を20ではなく、50にしてみる。
 
 ``` r
@@ -425,25 +429,27 @@ summary(replicate(50, mean(rnorm(10))))
 ```
 
     ##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-    ## -0.627885 -0.139393  0.018787  0.004131  0.158573  0.670085
+    ## -0.812818 -0.202390  0.009416  0.018928  0.203542  0.778388
 
 ``` r
 summary(replicate(50, mean(rnorm(1000))))
 ```
 
-    ##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
-    ## -5.468e-02 -2.289e-02  6.398e-05 -2.231e-03  1.508e-02  5.677e-02
+    ##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+    ## -0.079292 -0.020805 -0.006961 -0.005119  0.016276  0.068593
 
 ``` r
 summary(replicate(50, mean(rnorm(100000))))
 ```
 
     ##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
-    ## -0.0079891 -0.0009323  0.0006370  0.0005530  0.0026384  0.0061379
+    ## -5.947e-03 -1.569e-03 -3.028e-04 -3.567e-05  1.106e-03  6.264e-03
 
 サンプルサイズを100倍すると、最小値や最大値が、大体1/10くらいになっていることがわかる。
 
-以上より、母平均が分からなくても、ランダムに十分なサンプルサイズがとれれば(nが十分に大きければ)、標本平均は母平均に近づき、かつ、母平均からのブレ幅(標本平均の標準誤差)も小さくなるので、全数調査をしなくても母平均に十分近しい値がわかる、ということである。 これは、標本平均の標準誤差の性質(1/√n倍になる)による。 多くの人は感覚でわかることかもしれないが、ここでは数値実験で確かめてみた。
+以上より、母平均が分からなくても、ランダムに十分なサンプルサイズがとれれば(nが十分に大きければ)、標本平均は母平均に近づき、かつ、母平均からのブレ幅(標本平均の標準誤差)も小さくなるので、全数調査をしなくても母平均に十分近しい値がわかる、ということである。
+これは、標本平均の標準誤差の性質(1/√n倍になる)による。
+多くの人は感覚でわかることかもしれないが、ここでは数値実験で確かめてみた。
 
 2.5 中心極限定理と正規分布
 --------------------------
@@ -454,13 +460,13 @@ summary(replicate(50, mean(rnorm(100000))))
 hist(runif(10000)) # 10000個の一様乱数のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-21-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 ``` r
 hist(runif(10000), freq = FALSE) # ヒストグラムにオプションをつけてみました。なにが変わったかわかりますか？
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-21-2.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-22-2.png)
 
 一様乱数の平均値と分散を計算してみよう。
 
@@ -468,13 +474,13 @@ hist(runif(10000), freq = FALSE) # ヒストグラムにオプションをつけ
 mean(runif(10000))
 ```
 
-    ## [1] 0.4933628
+    ## [1] 0.5016973
 
 ``` r
 var(runif(10000))
 ```
 
-    ## [1] 0.08280456
+    ## [1] 0.08239588
 
 runif関数のデフォルト値は、最大値1、最小値0となるので、平均は0.5となる。分散の計算は、積分とかが出てきて難しいので省略する。
 
@@ -484,9 +490,9 @@ runif関数のデフォルト値は、最大値1、最小値0となるので、�
 hist(runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
-三角形になった。グラフから読み取ると、平均値は1に近いようだ。平均値0.5の一様乱数を二つ足したのだから、平均値は2倍されて1になるだろう、と言われると、納得できる。ちなみに分散を計算してみると0.1652327となり、やっぱり2倍くらいになっている。
+三角形になった。グラフから読み取ると、平均値は1に近いようだ。平均値0.5の一様乱数を二つ足したのだから、平均値は2倍されて1になるだろう、と言われると、納得できる。ちなみに分散を計算してみると0.1689556となり、やっぱり2倍くらいになっている。
 
 では、3標本にするとどうなるか。
 
@@ -494,9 +500,9 @@ hist(runif(10000) + runif(10000))
 hist(runif(10000) + runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
-3標本だと、釣り鐘型になってきた。正規分布に近いのではないだろうか。平均値は想像通り1.5だし、分散も0.25171、やはり3倍くらいになっている。
+3標本だと、釣り鐘型になってきた。正規分布に近いのではないだろうか。平均値は想像通り1.5だし、分散も0.2481937、やはり3倍くらいになっている。
 
 でも、runifを3回足すのも疲れてきた。3倍してはいけないのだろうか？
 
@@ -504,7 +510,7 @@ hist(runif(10000) + runif(10000) + runif(10000))
 hist(runif(10000) * 3)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 これだとうまくいかない。なぜだろうか？「グラフの横軸」をヒントに、rでどのような計算がされるか、考えてみよう(各自宿題)。
 
@@ -514,7 +520,7 @@ hist(runif(10000) * 3)
 1 / var(runif(10000))
 ```
 
-    ## [1] 12.02149
+    ## [1] 12.0884
 
 12くらいの値になった。つまり、一様乱数の分散は、だいたい1/12くらいの値になるということだ。
 では、分散を1にするために、一様乱数を12個足したヒストグラムを見てみよう。
@@ -523,7 +529,7 @@ hist(runif(10000) * 3)
 hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-27-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 これで分散は1になったが、今度は平均値が6くらいになってしまったので、6を引いてみよう。6を引いても、分散の値は変わらないことに注意する。
 
@@ -531,7 +537,7 @@ hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + 
 hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 さて、これで、平均値0、分散1のヒストグラムができた。さて、どこかで見たような…
 
@@ -539,10 +545,11 @@ hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + 
 hist(rnorm(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 そう、これは標準正規分布(つまり平均0、分散1の正規分布)と同じようにみえる。
-これが、中心極限定理である。rのおかげで、数式を使わずに、中心極限定理を体感できた。
+これが、中心極限定理である。十分にnが大きい確率分布をいくつか足していくと、だいたいどんな確率分布を足したとしても、正規分布に近づいていくのだ。
+rのおかげで、数式を使わずに、中心極限定理を体感できた。
 
 さて、教科書を見ると、「nが十分に大きくなると」という条件がある。ここまではn = 10000として計算してきたが、n = 5のように小さくすると、中心極限定理は成り立たないのだろうか？実験してみよう。さっきと同じようにrunifを12回足すが、各々サンプルサイズは5にしてみる。
 
@@ -550,7 +557,7 @@ hist(rnorm(10000))
 hist(runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 やはり、正規分布には見えない。では、n = 50ではどうなるか。
 
@@ -558,7 +565,7 @@ hist(runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) 
 hist(runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 やっぱり正規分布には見えない。
 nが沢山あるときのありがたさを感じたい。
