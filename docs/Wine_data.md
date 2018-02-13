@@ -188,7 +188,9 @@ wineデータセットのうち、Alcohol(アルコール)列のみを使う。
 hist(wine$Alcohol) # ヒストグラム
 ```
 
-![](Wine_data_files/figure-markdown_github/unnamed-chunk-5-1.png) 割と、左右対称なグラフですね。
+![](Wine_data_files/figure-markdown_github/unnamed-chunk-5-1.png)
+
+割と、左右対称なグラフですね。
 
 ``` r
 mean(wine$Alcohol) # 平均値
