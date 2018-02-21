@@ -8,6 +8,10 @@ Chapter3 2項分布、検定、信頼区間
 -   [3.5 信頼区間](#信頼区間)
 -   [3.6 2項分布から正規分布へ](#項分布から正規分布へ)
 -   [3.7 検定の例：PISAの「盗難事件」問題](#検定の例pisaの盗難事件問題)
+    -   [支払件数と支払非該当件数の比率](#支払件数と支払非該当件数の比率)
+    -   [苦情件数](#苦情件数)
+    -   [1万人に1人がかかる病気](#万人に1人がかかる病気)
+    -   [教科書の例題の別解](#教科書の例題の別解)
 -   [3.8 信頼区間の例](#信頼区間の例)
 -   [3.9 尤度と最尤法](#尤度と最尤法)
 -   [3.10 止め方で結果が変わる？](#止め方で結果が変わる)
@@ -637,7 +641,119 @@ binom.test(508, 508+516, 0.5)
 
 p値は0.8以上であり、統計的な有意差があるとは、とても言えない。
 
-ここからは補足なので、飛ばしてもよい。
+### 支払件数と支払非該当件数の比率
+
+2016年度は、通年で5824件の支払があり、221件が支払非該当となった。支払非該当となる率は、221/(5824+221) = 3.655914%である。 参考： <http://file.swcms.net/file/lifenet-seimei/ja/news/index/auto_20170417443355/pdfFile.pdf>
+
+2017年度の第3四半期までで同じ率を計算すると、125/(3074+125) = 3.9074711%であり、前年よりも若干高い気がする。 参考： <http://ir.lifenet-seimei.co.jp/ja/news/index/index-3231939001029500408/main/0/link/IP2017_2Q.pdf>
+
+支払非該当率は2016年度よりも2017年度のほうが高い傾向がある、と言えるだろうか。2項検定で確かめてみよう。
+
+-   帰無仮説：支払非該当率は2016年度と2017年度で等しい
+-   対立仮説：支払非該当率は2016年度よりも2017年度のほうが高い
+
+2016年に対して2017年度の数値を比較するため、θには2016年度の率を、nとxには2017年度の数値を入力する。
+
+``` r
+binom.test(125, 3074+125, 221/(5824+221))
+```
+
+    ## 
+    ##  Exact binomial test
+    ## 
+    ## data:  125 and 3074 + 125
+    ## number of successes = 125, number of trials = 3199, p-value =
+    ## 0.4508
+    ## alternative hypothesis: true probability of success is not equal to 0.03655914
+    ## 95 percent confidence interval:
+    ##  0.03262812 0.04638037
+    ## sample estimates:
+    ## probability of success 
+    ##             0.03907471
+
+p値はそれほど低くなく、確信をもって2017年度のほうが高い、とは言い切れない。
+
+実際には、上記集計単位で支払非該当率を計算するのは適切ではないかもしれないので、鵜呑みにしないでください。
+
+### 苦情件数
+
+2017年第3四半期までの苦情において、 新契約関係の占率(62.3%)が、2016年のそれ(52.4%)を、10%ほど上回っている。 参考： <http://ir.lifenet-seimei.co.jp/ja/news/index/index6856789819644670221/main/0/link/CI2017_3Q.pdf>
+
+2016年から、新契約関係の占率が有意に増えたと言えるだろうか。
+比較基準とするのは2016年の新契約関係の占率(θ=0.524)、比較対象は新契約関係の苦情数(x=708)、苦情総数(n=1136)となる。
+
+``` r
+binom.test(708, 1136, 0.524)
+```
+
+    ## 
+    ##  Exact binomial test
+    ## 
+    ## data:  708 and 1136
+    ## number of successes = 708, number of trials = 1136, p-value =
+    ## 1.663e-11
+    ## alternative hypothesis: true probability of success is not equal to 0.524
+    ## 95 percent confidence interval:
+    ##  0.5943308 0.6515080
+    ## sample estimates:
+    ## probability of success 
+    ##              0.6232394
+
+p値は非常に低く、新契約関係の苦情占率は2016年に比べ有意に上昇したと言っていいだろう。95%信頼区間の下限を見てみても、ほぼ60～65%になりそうな感じである。
+
+まぁ、新契約の業績がいいので、新契約の問い合わせも多くなり、新契約関係の苦情がその他の苦情より多くなるのは、想像に難くない。むしろ、新契約関係の問い合わせに占める苦情発生率を前年度と比較すべきだろう。
+
+### 1万人に1人がかかる病気
+
+<https://twitter.com/katori_OR/status/965650559314272256>
+
+10000人に1人かかる珍しい病気Aがある。10000人、患者を診察したが、1人も病気Aと診断しなかった。自分は診断ミスをしたのだろうか。これを検定したかったら、確率θ=1/10000(病気Aの有病率), 試行回数n=10000(診察した患者数)、病気Aを発見した数x=0で、2項検定してみる。
+
+``` r
+binom.test(0, 10000, 1/10000)
+```
+
+    ## 
+    ##  Exact binomial test
+    ## 
+    ## data:  0 and 10000
+    ## number of successes = 0, number of trials = 10000, p-value =
+    ## 0.6321
+    ## alternative hypothesis: true probability of success is not equal to 1e-04
+    ## 95 percent confidence interval:
+    ##  0.0000000000 0.0003688199
+    ## sample estimates:
+    ## probability of success 
+    ##                      0
+
+p値を見ると、病気Aを発見しなかった(x=0であったこと)は、必ずしも珍しい事象ではないようである。
+
+では、4万人くらい診察してみますか。
+
+``` r
+binom.test(0, 40000, 1/10000)
+```
+
+    ## 
+    ##  Exact binomial test
+    ## 
+    ## data:  0 and 40000
+    ## number of successes = 0, number of trials = 40000, p-value =
+    ## 0.03967
+    ## alternative hypothesis: true probability of success is not equal to 1e-04
+    ## 95 percent confidence interval:
+    ##  0.000000e+00 9.221773e-05
+    ## sample estimates:
+    ## probability of success 
+    ##                      0
+
+4万人の患者を診て一人も病気Aではなかったら、さすがに診断ミスを疑ったほうがいいかもしれない。
+
+元ネタ： <https://twitter.com/ssmufler/status/965787637456842752>
+
+### 教科書の例題の別解
+
+ここは補足なので、少しでもわからなければ、飛ばしてもよい。
 今回の例では、ポアソン分布に従う検定(ポアソン検定)を使ってもよい。というか、そちらのほうがわかりやすい。
 
 ポアソン分布(第4章で説明する)は、一定期間に平均してx回起こるような、比較的まれな事象をモデル化する確率分布である(例、一定期間におこる、交通事故数、苦情数、死者数、病欠数、etc)。
