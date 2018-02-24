@@ -570,8 +570,132 @@ hist(runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + run
 やっぱり正規分布には見えない。
 nが沢山あるときのありがたさを感じたい。
 
-これ以降、教科書では正規分布を例にして、密度関数dnorm、分布関数pnorm、分位関数qnorm、乱数を発生させるrnormの話が始まるが、ここでは割愛する。
-なお、以前、分布関数pnormと確率と面積の話をしたことがある。忘れた方は復習をお願いしたい。
+さて、ここからは、確率分布の面積と確率の関係について、述べておく。
+「標準正規分布(平均が0、標準偏差が1となる正規分布)」のグラフは、正規分布の確率密度関数であるdnorm関数を利用すると、以下の通りに描ける。正規分布のグラフは左右対称であることに注意する。正規分布は-∞から+∞までグラフが伸びていくが、ここでは横軸を±4で区切っている。
+
+``` r
+curve(dnorm(x), xlim = c(-4, 4)); title("dnorm(x)")
+```
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-33-1.png)
+
+教科書27ページ中ごろあたりに、分布関数pnorm(q)が数式と一緒に紹介されている。この数式∫<sub>−∞</sub><sup>*q*</sup>*d**n**o**r**m*(*x*)*d**x*には、積分記号(∫<sub>−∞</sub><sup>*q*</sup>)があり、なんらかの面積を求めているようだ。この積分記号の中にあるqが-2, -1, 0, or 3となるとき、この分布関数が求めている面積を図示してみると、以下の通りになる。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-3.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-4.png)
+
+ちなみに、上記のグラフで、端(-∞)から端(+∞)までの面積を求めると(積分記号で書くと∫<sub>−∞</sub><sup>+∞</sup>)、その数値は1になる。
+
+さて、分布関数pnorm(q)に、-2, -1, 0, 3を代入したときの値を見てみよう。
+
+``` r
+pnorm(-2)
+```
+
+    ## [1] 0.02275013
+
+``` r
+pnorm(-1)
+```
+
+    ## [1] 0.1586553
+
+``` r
+pnorm(0)
+```
+
+    ## [1] 0.5
+
+``` r
+pnorm(3)
+```
+
+    ## [1] 0.9986501
+
+``` r
+# もっと簡単に4つの値を求めるなら
+q <- c(-2, -1, 0, 3)
+pnorm(q)
+```
+
+    ## [1] 0.02275013 0.15865525 0.50000000 0.99865010
+
+このとき、それぞれの値は、上で書いたグラフの緑の面積の大きさを示している。
+
+例えば、pnorm(0)の値は、「標準正規分布の面積(= 1)」のちょうど半分、0.5になっていることが分かり、これは「q = 0のグラフの緑部分の面積」の見た目とも一致する。そして、この値が「標準正規分布で0より小さい値となる(-∞から0となる)確率」なのである。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-36-1.png)
+
+同様に、pnorm(-2)の値である0.0227501は「標準正規分布で-2より小さくなる確率」と言える。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-37-1.png)
+
+それでは、「-1から1になる確率」を求めたいときは、どうすればいいだろうか。
+「-1から1になる確率」をグラフ上に面積で図示すると、以下の通りである。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-38-1.png)
+
+この面積を求めたいときは、まず「-∞から1までの面積」から、「-∞から-1までの面積」を引いてあげればよい。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-39-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-39-2.png)
+
+この面積の数値は、pnorm関数で簡単に計算できる。 「-∞から1までの面積」はpnorm(1)であり、 「-∞から-1までの面積」はpnorm(-1)なので、 「-1から1までの面積」はpnorm(1) - pnorm(-1)で、計算してみると0.6826895となる。
+
+さて、同様の面積(確率)を求めるときに、標準正規分布のグラフの端から端までの面積が1であることを利用すると、「全体の面積(= 1)」から、「-∞から-1までの面積」と「1から∞までの面積」を引いても同じ値になるはずである。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-3.png)
+
+さらに、グラフが左右対称であることを利用すると、「-∞から-1までの面積」と「1から∞までの面積」は等しいことが分かる。
+よって、1から、「-∞から-1までの面積」を二つ分引けば、求めたい面積(確率)になり、これは1 - 2 × pnorm(-1)で求めると0.6826895、上で計算した値とぴったり一致する。
+
+さて、これまでの議論では標準正規分布を使ってきた。「標準」の意味は平均(μ、ミュー)が0、標準偏差(σ、シグマ)が1、であった。 よって、標準正規分布で「-1から1までの面積(1 - 2 × pnorm(-1))」というのは、平均値から±1標準偏差(記号で書けばμ ± 1σ)の間に収まる確率を求めたことと同じである。同様に、μ ± 2σとなる確率は1 - 2 × pnorm(-2)で0.9544997、μ ± 3σとなる確率は1 - 2 × pnorm(-3)で0.9973002となり、これを図示すると以下の通りである。μ ± 3σは、ほぼ面積1に近い値になることが分かるだろう。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-3.png)
+
+次に、標準正規分布ではなく、「日本人の34歳男性の身長の正規分布」を考えてみよう。便宜的に、日本人の34歳男性の身長は、平均が172cm、標準偏差が5.5cmの正規分布に従うものとすると、確率密度関数はdnorm(x, mean = 172, sd = 5.5)となる。グラフを描くと、以下の通りである。
+
+``` r
+curve(dnorm(x, mean = 172, sd = 5.5), xlim = c(150, 195)); title("dnorm(x, mean = 172, sd = 5.5)")
+```
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-42-1.png)
+
+ある34歳日本人男性を選んだ時、その人の身長が160cm以上170cm未満である確率は、pnorm(170, mean = 172, sd = 5.5) - pnorm(160, mean = 172, sd = 5.5)を計算して、0.3435033となる。グラフに図示すると以下の通りである。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-43-1.png)
+
+同様に、身長が174cm以上175cm未満である確率は、pnorm(175, mean = 172, sd = 5.5) - pnorm(174, mean = 172, sd = 5.5)を計算して、0.0653443となる。グラフに図示すると以下の通りである。
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-44-1.png)
+
+さて、標準正規分布のヒストグラム(度数分布表)を描く関数は以下の通りである。一応、関数の解説をすると、
+
+-   rnorm関数で、標準正規分布に従う乱数を10,000個つくる
+-   つくった乱数をhist関数でヒストグラムにする
+
+``` r
+hist(rnorm(10000))
+```
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-45-1.png)
+
+平均172、標準偏差5.5の正規分布のヒストグラム(度数分布表)を描く関数は以下の通り。
+
+``` r
+hist(rnorm(10000, mean = 172, sd = 5.5))
+```
+
+![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-46-1.png)
+
+なにが違うかわかりましたか?
+
+-   標準正規分布：rnorm(10000)
+-   平均172、標準偏差5.5の正規分布：rnorm(10000, mean = 172, sd = 5.5)
+
+後者は、「平均mean(発音はミーン)」、「標準偏差sd(英語でstandard deviation、発音はスタンダードデヴィエイション)を」を、それぞれ172と5.5と明示的に指定している。前者は明示的に指定していない。
+
+実は、関数にオプションがあるときに、そのオプションを明示的に指定しないと、Rはデフォルト値を使って関数を実行する。rnorm関数のmeanのデフォルト値は0、sdのデフォルト値は1、つまりデフォルト値が標準正規分布(平均0、標準偏差1)になるように設定されている。
+
+各関数のデフォルト値を確認したいときは、コンソールで「?関数」とタイプしてみてください。
 
 2.6 コーシー分布
 ----------------
