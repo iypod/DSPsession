@@ -1,0 +1,15 @@
+---
+title: "Chapter5 分割法の解析"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+set.seed(123)
+```
+
+```{r , include=FALSE}
+library(tidyverse)
+```
