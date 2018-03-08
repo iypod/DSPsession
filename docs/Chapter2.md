@@ -96,19 +96,19 @@ median(Y, na.rm = TRUE)
 hist(rnorm(10000)) # 標準正規分布のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ``` r
 hist(rchisq(10000, 10)) # 自由度10のカイ二乗分布の(以下略)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-5-2.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-5-2.png)
 
 ``` r
 hist(rcauchy(10000)) # コーシー分布の(以下略)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-5-3.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-5-3.png)
 
 2.3 確率変数、乱数、母集団、標本
 --------------------------------
@@ -194,23 +194,23 @@ mean(2 * X + 3 * Y) # この計算と…
 hist(rnorm(10000)) # 標準正規分布のヒストグラム。つまり、標準偏差は1、分散も1
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 ``` r
 hist(rnorm(10000, sd = 2)) # 平均0、標準偏差は2(分散なら4)の正規分布
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-11-2.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-11-2.png)
 
 ``` r
 hist(rnorm(10000, sd = 10)) # 平均0、標準偏差は10(分散なら100)の正規分布
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-11-3.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-11-3.png)
 
 上記の三つの分布を重ねて描いてみる。グレーが標準偏差1, グリーンが標準偏差2、オレンジが標準偏差10。分散(=標準偏差の2乗)は、まさに分布の広がり具合を表している。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 あるサイズnの標本の分散を計算したいが、分散の計算式には、母平均を使うことになっている。
 しかし、母平均は分からないことも多い(例えば、母集団を東京都民とすると、その身長の母平均を求めるのは困難を極める)。
@@ -403,24 +403,24 @@ nが増えるたびに、「標本平均の標準偏差」(＝標準誤差)が�
 hist(replicate(100, mean(rnorm(10)))) # サンプルサイズ10で標本数100、標本平均100個分のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
 ``` r
 hist(replicate(100, mean(rnorm(1000))))  # サンプルサイズ1000で標本数100、標本平均100個分のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-19-2.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-19-2.png)
 
 ``` r
 hist(replicate(100, mean(rnorm(100000))))  # サンプルサイズ100000で標本数100、標本平均100個分のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-19-3.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-19-3.png)
 
 標準偏差とはデータのばらつき具合だったが、ヒストグラムの横軸に注目してみると、ばらつき具合がどんどん小さくなっていく。
 上記の三つのヒストグラムを重ねて描いてみると、以下の通り。グレーのヒストグラムは、オレンジに比べて分散があまりに小さいので、0(平均)上にしか分布していない。どのヒストグラムが、サンプルサイズ10、1000、100000か、考えてみてください。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-20-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 さらに、最大値、最小値や、四分位数を見てみよう。今度は標本数を20ではなく、50にしてみる。
 
@@ -460,13 +460,13 @@ summary(replicate(50, mean(rnorm(100000))))
 hist(runif(10000)) # 10000個の一様乱数のヒストグラム
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-22-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 ``` r
 hist(runif(10000), freq = FALSE) # ヒストグラムにオプションをつけてみました。なにが変わったかわかりますか？
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-22-2.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-22-2.png)
 
 一様乱数の平均値と分散を計算してみよう。
 
@@ -490,7 +490,7 @@ runif関数のデフォルト値は、最大値1、最小値0となるので、�
 hist(runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 三角形になった。グラフから読み取ると、平均値は1に近いようだ。平均値0.5の一様乱数を二つ足したのだから、平均値は2倍されて1になるだろう、と言われると、納得できる。ちなみに分散を計算してみると0.1689556となり、やっぱり2倍くらいになっている。
 
@@ -500,7 +500,7 @@ hist(runif(10000) + runif(10000))
 hist(runif(10000) + runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 3標本だと、釣り鐘型になってきた。正規分布に近いのではないだろうか。平均値は想像通り1.5だし、分散も0.2481937、やはり3倍くらいになっている。
 
@@ -510,7 +510,7 @@ hist(runif(10000) + runif(10000) + runif(10000))
 hist(runif(10000) * 3)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-26-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
 これだとうまくいかない。なぜだろうか？「グラフの横軸」をヒントに、rでどのような計算がされるか、考えてみよう(各自宿題)。
 
@@ -529,7 +529,7 @@ hist(runif(10000) * 3)
 hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 これで分散は1になったが、今度は平均値が6くらいになってしまったので、6を引いてみよう。6を引いても、分散の値は変わらないことに注意する。
 
@@ -537,7 +537,7 @@ hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + 
 hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-29-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 さて、これで、平均値0、分散1のヒストグラムができた。さて、どこかで見たような…
 
@@ -545,7 +545,7 @@ hist(runif(10000) + runif(10000) + runif(10000) + runif(10000) + runif(10000) + 
 hist(rnorm(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 そう、これは標準正規分布(つまり平均0、分散1の正規分布)と同じようにみえる。
 これが、中心極限定理である。十分にnが大きい確率分布をいくつか足していくと、だいたいどんな確率分布を足したとしても、正規分布に近づいていくのだ。
@@ -557,7 +557,7 @@ rのおかげで、数式を使わずに、中心極限定理を体感できた�
 hist(runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-31-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-31-1.png)
 
 やはり、正規分布には見えない。では、n = 50ではどうなるか。
 
@@ -565,7 +565,7 @@ hist(runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) + runif(5) 
 hist(runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) + runif(50) - 6)
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-32-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-32-1.png)
 
 やっぱり正規分布には見えない。
 nが沢山あるときのありがたさを感じたい。
@@ -577,11 +577,11 @@ nが沢山あるときのありがたさを感じたい。
 curve(dnorm(x), xlim = c(-4, 4)); title("dnorm(x)")
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-33-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-33-1.png)
 
 教科書27ページ中ごろあたりに、分布関数pnorm(q)が数式と一緒に紹介されている。この数式∫<sub>−∞</sub><sup>*q*</sup>*d**n**o**r**m*(*x*)*d**x*には、積分記号（∫<sub>−∞</sub><sup>*q*</sup>）があり、なんらかの面積を求めているようだ。この積分記号の中にあるqが-2, -1, 0, or 3となるとき、この分布関数が求めている面積を図示してみると、以下の通りになる。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-3.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-34-4.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-34-1.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-34-2.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-34-3.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-34-4.png)
 
 ちなみに、上記のグラフで、端(-∞)から端(+∞)までの面積を求めると(積分記号で書くと∫<sub>−∞</sub><sup>+∞</sup>)、その数値は1になる。
 
@@ -623,33 +623,33 @@ pnorm(q)
 
 例えば、pnorm(0)の値は、「標準正規分布の面積(= 1)」のちょうど半分、0.5になっていることが分かり、これは「q = 0のグラフの緑部分の面積」の見た目とも一致する。そして、この値が「標準正規分布で0より小さい値となる(-∞から0となる)確率」なのである。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-36-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-36-1.png)
 
 同様に、pnorm(-2)の値である0.0227501は「標準正規分布で-2より小さくなる確率」と言える。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-37-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-37-1.png)
 
 それでは、「-1から1になる確率」を求めたいときは、どうすればいいだろうか。
 「-1から1になる確率」をグラフ上に面積で図示すると、以下の通りである。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-38-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-38-1.png)
 
 この面積を求めたいときは、まず「-∞から1までの面積」から、「-∞から-1までの面積」を引いてあげればよい。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-39-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-39-2.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-39-1.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-39-2.png)
 
 この面積の数値は、pnorm関数で簡単に計算できる。 「-∞から1までの面積」はpnorm(1)であり、 「-∞から-1までの面積」はpnorm(-1)なので、 「-1から1までの面積」はpnorm(1) - pnorm(-1)で、計算してみると0.6826895となる。
 
 さて、同様の面積(確率)を求めるときに、標準正規分布のグラフの端から端までの面積が1であることを利用すると、「全体の面積(= 1)」から、「-∞から-1までの面積」と「1から∞までの面積」を引いても同じ値になるはずである。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-40-3.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-40-1.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-40-2.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-40-3.png)
 
 さらに、グラフが左右対称であることを利用すると、「-∞から-1までの面積」と「1から∞までの面積」は等しいことが分かる。
 よって、1から、「-∞から-1までの面積」を二つ分引けば、求めたい面積(確率)になり、これは1 - 2 × pnorm(-1)で求めると0.6826895、上で計算した値とぴったり一致する。
 
 さて、これまでの議論では標準正規分布を使ってきた。「標準」の意味は平均(μ、ミュー)が0、標準偏差(σ、シグマ)が1、であった。 よって、標準正規分布で「-1から1までの面積(1 - 2 × pnorm(-1))」というのは、平均値から±1標準偏差(記号で書けばμ ± 1σ)の間に収まる確率を求めたことと同じである。同様に、μ ± 2σとなる確率は1 - 2 × pnorm(-2)で0.9544997、μ ± 3σとなる確率は1 - 2 × pnorm(-3)で0.9973002となり、これを図示すると以下の通りである。μ ± 3σは、ほぼ面積1に近い値になることが分かるだろう。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-1.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-2.png)![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-41-3.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-41-1.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-41-2.png)![](Chapter2_files/figure-markdown_github/unnamed-chunk-41-3.png)
 
 次に、標準正規分布ではなく、「日本人の34歳男性の身長の正規分布」を考えてみよう。便宜的に、日本人の34歳男性の身長は、平均が172cm、標準偏差が5.5cmの正規分布に従うものとすると、確率密度関数はdnorm(x, mean = 172, sd = 5.5)となる。グラフを描くと、以下の通りである。
 
@@ -657,15 +657,15 @@ pnorm(q)
 curve(dnorm(x, mean = 172, sd = 5.5), xlim = c(150, 195)); title("dnorm(x, mean = 172, sd = 5.5)")
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-42-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-42-1.png)
 
 ある34歳日本人男性を選んだ時、その人の身長が160cm以上170cm未満である確率は、pnorm(170, mean = 172, sd = 5.5) - pnorm(160, mean = 172, sd = 5.5)を計算して、0.3435033となる。グラフに図示すると以下の通りである。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-43-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-43-1.png)
 
 同様に、身長が174cm以上175cm未満である確率は、pnorm(175, mean = 172, sd = 5.5) - pnorm(174, mean = 172, sd = 5.5)を計算して、0.0653443となる。グラフに図示すると以下の通りである。
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-44-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-44-1.png)
 
 さて、標準正規分布のヒストグラム(度数分布表)を描く関数は以下の通りである。一応、関数の解説をすると、
 
@@ -676,7 +676,7 @@ curve(dnorm(x, mean = 172, sd = 5.5), xlim = c(150, 195)); title("dnorm(x, mean 
 hist(rnorm(10000))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-45-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-45-1.png)
 
 平均172、標準偏差5.5の正規分布のヒストグラム(度数分布表)を描く関数は以下の通り。
 
@@ -684,7 +684,7 @@ hist(rnorm(10000))
 hist(rnorm(10000, mean = 172, sd = 5.5))
 ```
 
-![](session2_Chapter2_files/figure-markdown_github/unnamed-chunk-46-1.png)
+![](Chapter2_files/figure-markdown_github/unnamed-chunk-46-1.png)
 
 なにが違うかわかりましたか?
 
