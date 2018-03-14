@@ -1,5 +1,5 @@
 ---
-title: "Chapter5 分割法の解析"
+title: "Chapter5 分割表の解析"
 output: 
   github_document:
     toc: TRUE
@@ -12,4 +12,27 @@ set.seed(123)
 
 ```{r , include=FALSE}
 library(tidyverse)
+```
+
+## 5.1 分割表
+
+分割表とは、クロス集計表のことである。以上。
+
+Rにはデータから分割表を作る便利な関数がある。  
+例えば、タイタニック号のデータセットを使って、いくつかクロス集計表を見てみよう。
+
+```{r}
+Titanic
+```
+
+
+```{r}
+table()
+```
+
+
+```{r}
+x <- read.table("clipboard", header=FALSE)  
+x
+chisq.test(x)
 ```
