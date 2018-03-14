@@ -25,14 +25,8 @@ Rにはデータから分割表を作る便利な関数がある。
 Titanic
 ```
 
-
 ```{r}
-table()
-```
-
-
-```{r}
-x <- read.table("clipboard", header=FALSE)  
-x
-chisq.test(x)
+# x <- read.table("clipboard", header=FALSE)  
+# x
+# chisq.test(x)
 ```
