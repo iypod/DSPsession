@@ -1,0 +1,66 @@
+---
+title: "chapter11 主成分分析と因子分析"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## 11.1 多変量データ
+
+
+```{r}
+atest <- 
+  read_csv("https://raw.githubusercontent.com/okumuralab/RforFun/master/data/atest2015.csv") 
+
+names(atest)
+```
+
+```{r}
+chu <- 
+  atest %>% 
+  column_to_rownames("都道府県") %>%  # 都道府県名を行名にする
+  select(6:10) # 中学のテスト結果のみを選択する
+```
+
+```{r}
+plot(chu)
+cor(chu)
+```
+
+## 11.2 主成分分析
+
+```{r}
+r <- prcomp(chu)
+```
+
+```{r}
+par(xpd=TRUE)
+biplot(r)
+summary(r)
+plot(r)
+```
+
+```{r}
+biplot(prcomp(chu, scale = TRUE)) # 点数を標準化する
+```
+
+## 11.3 例：中野・西島・ゲルマンの法則
+(省略)
+
+## 11.4 因子分析
+
+```{r}
+f <- factanal(chu, factors = 2)
+f
+plot(f$loadings)
+text(f$loadings, names(chu))
+```
+
