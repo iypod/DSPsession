@@ -1,8 +1,7 @@
 ---
 title: "Chapter5 分割表の解析"
 output:
-  html_document:
-    self_contained: TRUE
+  github_document:
     toc: TRUE
 ---
 
