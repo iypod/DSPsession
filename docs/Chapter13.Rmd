@@ -1,0 +1,42 @@
+---
+title: "Chapter13 生存時間解析"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+set.seed(123)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## 13.1 プロローグ
+
+```{r}
+fisher.test(matrix(c(19,28,40,31), nrow = 2))
+```
+
+## 13.2 生存時間解析
+```{r}
+library(survival)
+
+whas100 <- 
+  read_csv("https://raw.githubusercontent.com/okumuralab/RforFun/master/data/whas100.csv")
+```
+
+```{r}
+s <- 
+  survfit(Surv(lenfol, fstat) ~ gender, whas100)
+
+summary(s)
+plot(s)
+```
+
+```{r}
+survdiff(Surv(lenfol, fstat) ~ gender, whas100)
+```
+
