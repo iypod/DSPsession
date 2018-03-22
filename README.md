@@ -10,7 +10,7 @@
 - Chapter7： 効果量、検出力、メタアナリシス
 - Chapter8： 相関
 - Chapter9： 回帰分析
-- Chapter11： 主成分分析と因子分析
+- [Chapter11： 主成分分析と因子分析](https://github.com/iypod/DSPsession/blob/master/docs/Chapter11.md)
 - Chapter13： 生存時間解析
 - [その他：ワイン(のデータ)を味わう](https://github.com/iypod/DSPsession/blob/master/docs/Wine_data.md)
 - [その他：教科書の全Rコード](https://github.com/okumuralab/RforFun/blob/master/code.md)
